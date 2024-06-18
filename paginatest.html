@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch JSON Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #json-output {
+            white-space: pre-wrap;
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fetch JSON Data</h1>
+    <p id="status">Loading...</p>
+    <div id="json-output"></div>
+    <script>
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        async function fetchData(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(HTTP error! Status: ${response.status});
+                }
+                const data = await response.json();
+                document.getElementById('json-output').textContent = JSON.stringify(data, null, 2);
+                document.getElementById('status').textContent = 'Data fetched successfully!';
+            } catch (error) {
+                document.getElementById('status').textContent = Error fetching data: ${error.message};
+            }
+        }
+
+        const urlParam = getQueryParam('url');
+        if (urlParam) {
+            fetchData(urlParam);
+        } else {
+            document.getElementById('status').textContent = 'No URL parameter provided.';
+        }
+    </script>
+</body>
+</html>
