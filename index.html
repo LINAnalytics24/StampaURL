@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embed Streamlit App</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <iframe id="streamlit-app"></iframe>
+    <script>
+        // Funzione per ottenere i parametri della query
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Costruisci l'URL per l'app Streamlit
+        const dynamicUrl = getQueryParam('dynamicUrl');
+        const streamlitAppUrl = https://your-streamlit-app-url/?url=${encodeURIComponent(dynamicUrl)};
+
+        // Imposta l'URL dell'iframe
+        document.getElementById('streamlit-app').src = streamlitAppUrl;
+    </script>
+</body>
+</html>
