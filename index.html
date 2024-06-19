@@ -1,42 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Display Dynamic URL Parameter</title>
+    <title>Embedded HTML from GitHub</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
+            padding: 0;
         }
-        #dynamic-url {
-            color: blue;
-            font-weight: bold;
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            height: 600px; /* Imposta l'altezza desiderata */
+            overflow: hidden;
+            margin: 20px 0; /* Margine superiore e inferiore opzionale */
+        }
+        .responsive-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
     </style>
 </head>
 <body>
-    <h1>Dynamic URL Parameter Display</h1>
-    <p>The dynamic URL parameter is: <span id="dynamic-url">N/A</span></p>
-    <iframe id="iframe" style="width:100%; height:400px; border:none;"></iframe>
-    <script>
-        // Funzione per ottenere i parametri della query
-        function getQueryParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
+    <div class="iframe-container">
+        <!-- Sostituisci il seguente URL con il percorso effettivo del tuo file HTML su GitHub -->
+        <iframe class="responsive-iframe" src="https://tuopercorso.github.io/path_al_tuo_file.html" allowfullscreen></iframe>
+    </div>
 
-        // Recupera il parametro 'dynamicUrl'
-        const dynamicUrl = getQueryParam('dynamicUrl');
-        
-        // Visualizza il parametro nella pagina
-        if (dynamicUrl) {
-            document.getElementById('dynamic-url').textContent = dynamicUrl;
-            // Se desideri caricare il dynamicUrl in un iframe, usa questa linea:
-            document.getElementById('iframe').src = dynamicUrl;
-        } else {
-            document.getElementById('dynamic-url').textContent = 'No parameter provided';
-        }
+    <script>
+        // Esempio di JavaScript per recuperare objectid dal contenuto dell'iframe
+        window.addEventListener('message', function(event) {
+            if (event.origin !== 'https://tuopercorso.github.io') return; // Sostituisci con l'origine del tuo file HTML su GitHub
+            if (event.data.type === 'objectId') {
+                var objectId = event.data.objectId;
+                console.log('ObjectId recuperato:', objectId);
+                // Puoi fare qualsiasi altra operazione qui con objectId
+            }
+        });
     </script>
 </body>
 </html>
