@@ -10,6 +10,11 @@
             margin: 0;
             padding: 0;
         }
+        .header {
+            background-color: #f0f0f0;
+            padding: 10px;
+            text-align: center;
+        }
         .iframe-container {
             position: relative;
             width: 100%;
@@ -25,24 +30,36 @@
             height: 100%;
             border: none;
         }
+        .error-message {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            font-size: 1.2em;
+            color: red;
+        }
     </style>
 </head>
 <body>
-    <div class="iframe-container">
-        <!-- Sostituisci il seguente URL con il percorso effettivo del tuo file HTML su GitHub -->
-        <iframe class="responsive-iframe" src="https://linanalytics24.github.io/StampaURL/index.html" allowfullscreen></iframe>
+    <div class="header">
+        <h1>Contenuto HTML Incorporato da GitHub</h1>
+        <p>Di seguito è visualizzato il contenuto HTML dal tuo repository su GitHub.</p>
     </div>
+    <div class="iframe-container">
+        <iframe class="responsive-iframe" src="https://raw.githubusercontent.com/tuonomeutente/tuorepository/main/path_al_tuo_file.html" allowfullscreen></iframe>
+    </div>
+    <div class="error-message" style="display:none;">Impossibile caricare il contenuto.</div>
 
     <script>
-        // Esempio di JavaScript per recuperare objectid dal contenuto dell'iframe
-        window.addEventListener('message', function(event) {
-            if (event.origin !== 'https://linanalytics24.github.io') return; // Sostituisci con l'origine del tuo file HTML su GitHub
-            if (event.data.type === 'objectId') {
-                var objectId = event.data.objectId;
-                console.log('ObjectId recuperato:', objectId);
-                // Puoi fare qualsiasi altra operazione qui con objectId
+        var iframe = document.querySelector('.responsive-iframe');
+        iframe.onload = function() {
+            // Controlla se il contenuto è stato caricato correttamente
+            if (!iframe.contentDocument || iframe.contentDocument.body.innerHTML.trim() === '') {
+                // Se il contenuto è vuoto o non è stato caricato correttamente, mostra il messaggio di errore
+                document.querySelector('.error-message').style.display = 'block';
+                iframe.style.display = 'none';
             }
-        });
+        };
     </script>
 </body>
 </html>
